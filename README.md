@@ -2,7 +2,7 @@
 spotDL integration for Lidarr.
 
 ## Information
-Lidarr-spotDL is an integration that allows for monitored tracks to be downloaded and added into Lidarr via spotDL.
+Lidarr-spotDL is an integration that allows for monitored albums and tracks to be downloaded and added into Lidarr via spotDL.
 
 <sub>This is a heavily modified (and actually working) fork of <a href="https://gitlab.com/rmnavz/lidarrspotdl">LidarrSpotDL</a>.</sub>
 
@@ -53,7 +53,7 @@ Download the source code from this repo.
 Build with the command `docker build -t 4rft5/lidarr-spotdl:latest .`
 
 ## How it Works
-This container, when started, checks to see if there are any Missing and Unmonitored tracks or albums in Lidarr, and uses the Spotify API to search for them before downloading them via SpotDL.
+This container, when started, checks to see if there are any missing and monitored tracks or albums (their artists must also be monitored) in Lidarr, and uses the Spotify API to search for them before downloading them via SpotDL.
 
 Music is then cataloged in the style of `/Artist/Album/(SpotDL Downloads)`, which allows it to be found by Lidarr in a library scan, given the volume path is set to your media or music folder.
 
