@@ -9,7 +9,9 @@ fi
 
 DOWNLOAD_DIR="${DOWNLOAD_DIR:-/downloads/music}"
 
-echo "$(date): Starting Download (if possible)..." | tee -a $LOGFILE
+echo " " | tee -a $LOGFILE
+echo "$(date): Attempting Search and Download..." | tee -a $LOGFILE
+echo " " | tee -a $LOGFILE
 downloaded_directories=$(python /app/extract_spotify_urls.py --download-dir $DOWNLOAD_DIR 2>&1)
 
 if [ $? -ne 0 ]; then

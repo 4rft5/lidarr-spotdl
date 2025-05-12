@@ -15,16 +15,18 @@ try:
     print('Connected to Lidarr API.')
     exit(0)
 except requests.exceptions.RequestException as e:
-    print('Lidarr API not available. Retrying in 10 seconds...')
+    print(f'Error: {e}.')
     exit(1)
 " ; then
             break
         else
+            echo " "
             echo "Lidarr API not available. Retrying in 10 seconds..."
             sleep 10
         fi
     done
 }
+
 
 while true; do
     if [ -f "$LOCK_FILE" ]; then
@@ -33,11 +35,12 @@ while true; do
         check_lidarr_api
 
         touch "$LOCK_FILE"
-        echo "Scanning Lidarr..."
+        echo "Scanning Lidarr for missing files..."
         /bin/sh /app/run_spotdl.sh
         
         rm "$LOCK_FILE"
     fi
+    echo " "
     echo "Next Lidarr scan at:"
     date -d "now + ${MINUTE_INTERVAL} minutes"
     

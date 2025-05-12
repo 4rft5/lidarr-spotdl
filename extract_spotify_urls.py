@@ -39,8 +39,8 @@ def search_spotify(artist_url, song_name, album_name=None):
         results = sp.search(q=basic_query, type='album', limit=1)
         if results['albums']['items']:
             album_url = results['albums']['items'][0]['external_urls']['spotify']
+            print (" ")
             print(f"Download completed for '{album_name}' by {artist_id}.")
-            print("")
             return album_url
         else:
             print(f"No results found for '{song_name}' by {artist_id} on Spotify.")
@@ -49,8 +49,8 @@ def search_spotify(artist_url, song_name, album_name=None):
         results = sp.search(q=basic_query, type='track', limit=1)
         if results['tracks']['items']:
             track_url = results['tracks']['items'][0]['external_urls']['spotify']
+            print(" ")
             print(f"Download completed for '{song_name}' by {artist_id}.")
-            print("")
             return track_url
         else:
             print(f"No direct track match for '{song_name}' by {artist_id} on Spotify.")
@@ -100,24 +100,17 @@ def extract_spotify_urls_and_download(download_dir):
                         os.makedirs(album_folder, exist_ok=True)
 
                         download_command = f"spotdl \"{track_url}\" --output \"{album_folder}\""
-
-                        try:
-                            if enough_free_space(download_dir):
-                                subprocess.run(download_command, shell=True, check=True)
-                                downloaded_directory = f"{album_folder}"
-                                downloaded_directories.append(downloaded_directory)
-                            else:
-                                print(f"Not enough free space to download track for artist {record['artist']['artistName']}")
-                        except subprocess.CalledProcessError as e:
-                            print(f"Error downloading track for artist {record['artist']['artistName']}: {e}")            
+                        subprocess.run(download_command, shell=True, check=True)
+                        downloaded_directory = f"{album_folder}"
+                        downloaded_directories.append(downloaded_directory)         
 
     logging.info(f"Downloaded directories: {downloaded_directories}")
-    print(json.dumps(downloaded_directories))
+    if not downloaded_directories:
+        print("No new tracks or albums found to download.")
+        print(" ")
+    else:
+        print(json.dumps(downloaded_directories))
 
-
-def enough_free_space(directory, required_space=500):
-    total, used, free = shutil.disk_usage(directory)
-    return free >= required_space * 1024 * 1024
 
 parser = argparse.ArgumentParser(description='Extract Spotify URLs and download with SpotDL')
 parser.add_argument('--download-dir', type=str, default='/downloads/music', help='Download directory')
