@@ -2,4 +2,4 @@ spotdl
 requests
 yt-dlp
 ytmusicapi
-
+pyarr

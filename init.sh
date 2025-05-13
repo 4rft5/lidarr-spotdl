@@ -12,7 +12,6 @@ import requests
 try:
     response = requests.get('$LIDARR_URL/api/v1/system/status?apiKey=$LIDARR_API_KEY')
     response.raise_for_status()
-    print(' ')
     print('Connected to Lidarr API.')
     exit(0)
 except requests.exceptions.RequestException as e:
@@ -23,6 +22,7 @@ except requests.exceptions.RequestException as e:
         else
             echo " "
             echo "Lidarr API not available. Retrying in 10 seconds..."
+            echo " "
             sleep 10
         fi
     done
