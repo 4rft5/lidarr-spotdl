@@ -102,7 +102,7 @@ def extract_spotify_urls_and_download(download_dir):
                         download_command = f"spotdl \"{track_url}\" --output \"{album_folder}\""
                         subprocess.run(download_command, shell=True, check=True)
                         downloaded_directory = f"{album_folder}"
-                        downloaded_directories.append(downloaded_directory)         
+                        downloaded_directories.append(downloaded_directory)
 
     logging.info(f"Downloaded directories: {downloaded_directories}")
     if not downloaded_directories:
@@ -117,4 +117,3 @@ parser.add_argument('--download-dir', type=str, default='/downloads/music', help
 args = parser.parse_args()
 
 extract_spotify_urls_and_download(args.download_dir)
-

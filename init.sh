@@ -35,7 +35,7 @@ while true; do
         check_lidarr_api
 
         touch "$LOCK_FILE"
-        echo "Scanning Lidarr for missing files..."
+        echo "Scanning Lidarr..."
         /bin/sh /app/run_spotdl.sh
         
         rm "$LOCK_FILE"
