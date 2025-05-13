@@ -13,7 +13,7 @@ log_file_path = "/logs/run_spotdl.log"
 logging.basicConfig(filename=log_file_path, level=logging.INFO)
 
 def sanitize_directory_name(name):
-    sanitized_name = re.sub(r'[^a-zA-Z0-9_\-]', '_', name)
+    sanitized_name = re.sub(r'[^a-zA-Z0-9_\- ]', '_', name)
     return sanitized_name
 
 def search_spotify(artist_url, song_name, album_name=None):
