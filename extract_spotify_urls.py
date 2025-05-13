@@ -70,6 +70,7 @@ def extract_spotify_urls_and_download(download_dir):
         return 
 
     downloaded_directories = []
+    import_queue = []
 
     for record in data.get("records", []):
         artist_links = record.get("artist", {}).get("links", [])
@@ -102,7 +103,8 @@ def extract_spotify_urls_and_download(download_dir):
                         download_command = f"spotdl \"{track_url}\" --output \"{album_folder}\""
                         subprocess.run(download_command, shell=True, check=True)
                         downloaded_directory = f"{album_folder}"
-                        downloaded_directories.append(downloaded_directory)         
+                        downloaded_directories.append(downloaded_directory)
+                        import_queue.append(downloaded_directory)
 
     logging.info(f"Downloaded directories: {downloaded_directories}")
     if not downloaded_directories:
@@ -110,11 +112,12 @@ def extract_spotify_urls_and_download(download_dir):
         print(" ")
     else:
         print(json.dumps(downloaded_directories))
-
+        with open("/app/input_queue.txt", "w") as f:
+            for directory in import_queue:
+                f.write(f"{directory}\n")
 
 parser = argparse.ArgumentParser(description='Extract Spotify URLs and download with SpotDL')
-parser.add_argument('--download-dir', type=str, default='/downloads/music', help='Download directory')
+parser.add_argument('--download-dir', type=str, default='/music', help='Download directory')
 args = parser.parse_args()
 
 extract_spotify_urls_and_download(args.download_dir)
-

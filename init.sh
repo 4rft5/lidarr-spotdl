@@ -12,6 +12,7 @@ import requests
 try:
     response = requests.get('$LIDARR_URL/api/v1/system/status?apiKey=$LIDARR_API_KEY')
     response.raise_for_status()
+    print(' ')
     print('Connected to Lidarr API.')
     exit(0)
 except requests.exceptions.RequestException as e:
@@ -27,6 +28,12 @@ except requests.exceptions.RequestException as e:
     done
 }
 
+start_import() {
+    echo "Starting Lidarr import..."
+    echo " "
+
+    python /app/lidarr_import.py $downloaded_directories
+}
 
 while true; do
     if [ -f "$LOCK_FILE" ]; then
@@ -35,9 +42,20 @@ while true; do
         check_lidarr_api
 
         touch "$LOCK_FILE"
-        echo "Scanning Lidarr for missing files..."
-        /bin/sh /app/run_spotdl.sh
-        
+        echo "Scanning Lidarr and beginning download...(This may take a while!)"
+        echo " "
+
+        downloaded_directories=$(/bin/sh /app/run_spotdl.sh)
+
+        if [ -n "$downloaded_directories" ]; then
+            echo "Downloaded the following:"
+            cat /app/input_queue.txt
+            echo " "
+            start_import
+        else
+            echo "No new directories to import."
+        fi
+
         rm "$LOCK_FILE"
     fi
     echo " "
