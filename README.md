@@ -61,6 +61,8 @@ The container will then run checks for new items to download via the Lidarr API 
 
 ## Contributions
 
+I don't plan to update this further given the issues that Lidarr is currently experiencing. If you're looking for an alternative, I recommend <a href="https://github.com/spotizerr-dev/spotizerr">Spotizerr</a>.
+
 Pull Requests and other contributions are welcome. I've never made a Docker image before, so some things may not be as streamlined as they could be.
 
 ### Issues
