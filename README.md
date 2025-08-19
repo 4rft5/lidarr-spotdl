@@ -2,7 +2,7 @@
 spotDL integration for Lidarr.
 
 ## Information
-Lidarr-spotDL is an integration that allows for monitored albums and tracks to be downloaded and added into Lidarr via spotDL.
+Lidarr-spotDL is a proof-of-concept integration that allows for monitored albums and tracks to be downloaded and added into Lidarr via spotDL.
 
 <sub>This is a heavily modified (and actually working) fork of <a href="https://gitlab.com/rmnavz/lidarrspotdl">LidarrSpotDL</a>.</sub>
 
