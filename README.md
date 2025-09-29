@@ -6,6 +6,7 @@ Lidarr-spotDL is a proof-of-concept integration that allows for monitored albums
 
 <sub>This is a heavily modified (and actually working) fork of <a href="https://gitlab.com/rmnavz/lidarrspotdl">LidarrSpotDL</a>.</sub>
 
+I do not intend to update this repo any further given the issues Lidarr is facing. Would recommend Spotizerr or Deemix.
 ## Quick Start
 ### Needed Credentials:
   To utilize Lidarr-spotDL, you will need your Lidarr API key, as well as a <a href="https://developer.spotify.com/">Spotify Client ID and Secret.</a>
